@@ -1,0 +1,23 @@
+YUI().use("json", "event", "io-base", "node-base", function(Y) { 
+
+display = function(e) {
+     var val = document.getElementById('menucatlist');
+     catvalue= val.value;
+     if (catvalue) {
+        Y.io("/blocks/courseprerequisitelist/prerequisite.php", {
+             method: "POST",
+             data: "id="+catvalue,
+                on: {
+                    success: function (id, result) {
+                         //To do
+                         obj = JSON.parse(result.response);
+                         document.getElementById("tableid").innerHTML = obj;
+                         console.log(result);
+                    }
+                }
+        });
+     }
+}
+
+Y.on('click', display, "#id_display");
+});
